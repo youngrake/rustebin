@@ -2,12 +2,21 @@
 
 #[macro_use]
 extern crate rocket;
+extern crate rocket_contrib;
 
-#[get("/")]
-fn index() -> &'static str {
-    "Hello Rocket"
-}
+#[macro_use]
+extern crate serde;
+#[macro_use]
+extern crate serde_json;
+
+pub mod api;
+// pub mod core;
+// pub mod schema;
 
 fn main() {
-    rocket::ignite().mount("/", routes![index]).launch();
+    let mut rocket = rocket::ignite();
+
+    rocket = api::routes::fuel(rocket);
+
+    rocket.launch();
 }
