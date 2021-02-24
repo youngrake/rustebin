@@ -5,6 +5,12 @@ extern crate rocket;
 extern crate rocket_contrib;
 
 #[macro_use]
+extern crate diesel;
+
+#[macro_use]
+extern crate diesel_migrations;
+
+#[macro_use]
 extern crate serde;
 #[macro_use]
 extern crate serde_json;
