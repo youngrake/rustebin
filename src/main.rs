@@ -23,6 +23,8 @@ use slog_async;
 use slog_term;
 
 pub mod api;
+pub mod core;
+pub mod schema;
 pub mod utils;
 
 fn main() {
