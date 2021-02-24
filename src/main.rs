@@ -18,14 +18,10 @@ use slog_term;
 
 pub mod api;
 pub mod utils;
-// pub mod core;
-// pub mod schema;
 
 fn main() {
     let decorator = slog_term::TermDecorator::new().build();
-
     let drain = slog_term::FullFormat::new(decorator).build().fuse();
-
     let drain = slog_async::Async::new(drain).build().fuse();
 
     let logger = slog::Logger::root(drain, o!());
