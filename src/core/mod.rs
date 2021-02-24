@@ -1,2 +1,2 @@
-pub mod entity;
+pub mod pastes;
 pub mod users;
