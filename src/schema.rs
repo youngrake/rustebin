@@ -1,8 +1,8 @@
 table! {
     pastes (id) {
-        id -> Varchar,
+        id -> Nullable<Varchar>,
         owner -> Nullable<Varchar>,
-        is_url -> Bool,
+        is_url -> Nullable<Bool>,
         body -> Text,
     }
 }
@@ -18,7 +18,4 @@ table! {
 
 joinable!(pastes -> users (owner));
 
-allow_tables_to_appear_in_same_query!(
-    pastes,
-    users,
-);
+allow_tables_to_appear_in_same_query!(pastes, users,);
