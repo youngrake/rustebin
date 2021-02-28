@@ -18,6 +18,7 @@ extern crate serde_json;
 #[macro_use]
 extern crate slog;
 
+use dotenv::dotenv;
 use slog::Drain;
 use slog_async;
 use slog_term;
@@ -28,6 +29,8 @@ pub mod schema;
 pub mod utils;
 
 fn main() {
+    dotenv().ok();
+
     let decorator = slog_term::TermDecorator::new().build();
     let drain = slog_term::FullFormat::new(decorator).build().fuse();
     let drain = slog_async::Async::new(drain).build().fuse();
@@ -38,5 +41,8 @@ fn main() {
 
     rocket = api::routes::fuel(rocket);
 
-    rocket.manage(logger).launch();
+    rocket
+        .manage(utils::db::init_pool())
+        .manage(logger)
+        .launch();
 }
