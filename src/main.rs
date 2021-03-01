@@ -40,6 +40,7 @@ fn main() {
     let mut rocket = rocket::ignite();
 
     rocket = api::routes::fuel(rocket);
+    rocket = api::catchers::fuel(rocket);
 
     rocket
         .manage(utils::db::init_pool())
