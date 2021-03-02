@@ -32,7 +32,9 @@ pub fn not_found() -> status::Custom<Json<Value>> {
 pub fn inprocessable_entity() -> status::Custom<Json<Value>> {
     status::Custom(
         Status::UnprocessableEntity,
-        Json(json!({"error": "", "message": ""})),
+        Json(
+            json!({"error": "UnprocessableEntity", "message": "The given JSON cannot be processed"}),
+        ),
     )
 }
 
