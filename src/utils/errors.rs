@@ -1,9 +1,6 @@
-use rocket::{
-    http::{ContentType, Status},
-    response,
-    response::Responder,
-    Outcome, Request, Response, State,
-};
+use rocket::http::{ContentType, Status};
+use rocket::response::{self, Responder};
+use rocket::{Outcome, Request, Response, State};
 
 use slog;
 use slog::Logger;
@@ -31,6 +28,7 @@ impl Error {
             code,
             message: "".to_string(),
         }
+        .set_message()
     }
 
     pub fn custom(code: ErrorCode, message: String) -> Self {
