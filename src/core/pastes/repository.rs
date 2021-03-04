@@ -4,8 +4,10 @@ use diesel::PgConnection;
 use super::entity::Paste;
 use super::orm;
 
-pub fn create_paste(paste: &Paste, connection: &PgConnection) -> Result<usize> {
-    // TODO: check if paste is url
+use crate::utils::is_url;
+
+pub fn create_paste(paste: &mut Paste, connection: &PgConnection) -> Result<usize> {
+    paste.is_url = Some(is_url(paste.body.clone()));
     orm::create_paste(paste, connection)
 }
 

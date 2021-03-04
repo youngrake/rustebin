@@ -19,3 +19,11 @@ pub fn find_user(id: String, conn: &PgConnection) -> Result<User> {
 
     Ok(user)
 }
+
+pub fn update_user(user: &User, conn: &PgConnection) -> Result<User> {
+    let user = diesel::update(users::table.find(user.id.clone()))
+        .set(user)
+        .get_result::<User>(conn)?;
+
+    Ok(user)
+}

@@ -1,20 +1,15 @@
 use std::ops::DerefMut;
 
-use rocket::response::status::Custom;
-use rocket::{
-    http::{Cookie, Cookies, Status},
-    response::status,
-    Rocket,
-};
+use rocket::http::{Cookies, Status};
+use rocket::response::status::{self, Custom};
+use rocket::Rocket;
 
 use rocket_contrib::json::Json;
 use serde_json::Value;
 
-use crate::{
-    core::pastes::{entity::Paste, orm::create_paste, repository::get_paste},
-    utils::db::DbConn,
-    utils::generate_id,
-};
+use crate::core::pastes::entity::Paste;
+use crate::core::pastes::repository::{create_paste, get_paste};
+use crate::utils::{db::DbConn, generate_id};
 
 #[post("/", data = "<paste>")]
 fn create(mut paste: Json<Paste>, conn: DbConn, mut _cookies: Cookies) -> Custom<Json<Value>> {
@@ -29,8 +24,8 @@ fn create(mut paste: Json<Paste>, conn: DbConn, mut _cookies: Cookies) -> Custom
             Status::Created,
             Json(json!({
             "message": "Paste created",
-            "id": new_paste.id}
-                    )),
+            "id": new_paste.id
+            })),
         ),
 
         Err(e) => status::Custom(
