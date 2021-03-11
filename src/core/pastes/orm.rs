@@ -8,17 +8,23 @@ use crate::schema::pastes;
 
 use super::entity::Paste;
 
-pub fn create_paste(paste: &Paste, connection: &PgConnection) -> Result<usize> {
+pub fn create_paste(paste: &Paste, conn: &PgConnection) -> Result<usize> {
     let rows_inserted = diesel::insert_into(pastes::table)
         .values(paste)
         .on_conflict_do_nothing()
-        .execute(connection)?;
+        .execute(conn)?;
 
     Ok(rows_inserted)
 }
 
-pub fn get_paste(id: String, connection: &PgConnection) -> Result<Paste> {
-    let paste = pastes::table.find(id).get_result::<Paste>(connection)?;
+pub fn get_paste(id: String, conn: &PgConnection) -> Result<Paste> {
+    let paste = pastes::table.find(id).get_result::<Paste>(conn)?;
+
+    Ok(paste)
+}
+
+pub fn update_paste(paste: &Paste, conn: &PgConnection) -> Result<Paste> {
+    let paste = pastes::table.find(id).get_result::<Paste>(conn)?;
 
     Ok(paste)
 }
