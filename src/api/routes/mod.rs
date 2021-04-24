@@ -9,6 +9,7 @@ pub fn fuel(rocket: Rocket) -> Rocket {
 
     let rocket = test::fuel(rocket);
     let rocket = pastes::fuel(rocket);
+    let rocket = users::fuel(rocket);
 
     rocket
 }

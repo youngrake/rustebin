@@ -6,6 +6,7 @@ use rocket::Rocket;
 
 use rocket_contrib::json::Json;
 use serde_json::Value;
+
 use users::repository::fetch_user;
 
 use crate::core::pastes::entity::Paste;
@@ -14,8 +15,7 @@ use crate::core::users;
 
 use crate::api::catchers::{forbidden, internal_error, not_found, unprocessable_entity};
 
-use crate::utils::get_session_id;
-use crate::utils::{db::DbConn, generate_id};
+use crate::utils::{db::DbConn, generate_id, get_session_id};
 
 #[post("/", data = "<paste>")]
 fn create(mut paste: Json<Paste>, conn: DbConn, mut cookies: Cookies) -> Custom<Json<Value>> {
@@ -125,5 +125,5 @@ fn get(id: String, conn: DbConn, mut cookies: Cookies) -> Custom<Json<Value>> {
 }
 
 pub fn fuel(rocket: Rocket) -> Rocket {
-    rocket.mount("/api/paste", routes![create, get])
+    rocket.mount("/api/paste", routes![create, get, update])
 }
