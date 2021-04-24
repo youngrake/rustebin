@@ -29,7 +29,7 @@ pub fn not_found() -> status::Custom<Json<Value>> {
 }
 
 #[catch(422)]
-pub fn inprocessable_entity() -> status::Custom<Json<Value>> {
+pub fn unprocessable_entity() -> status::Custom<Json<Value>> {
     status::Custom(
         Status::UnprocessableEntity,
         Json(
@@ -51,7 +51,7 @@ pub fn fuel(rocket: Rocket) -> Rocket {
         bad_request,
         forbidden,
         not_found,
-        inprocessable_entity,
+        unprocessable_entity,
         internal_error
     ])
 }

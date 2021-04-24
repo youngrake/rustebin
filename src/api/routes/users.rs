@@ -14,7 +14,7 @@ use crate::{api::catchers::*, core::users::entity::User, utils::get_session_id};
 #[post("/", data = "<user>")]
 fn create(mut user: Json<entity::User>, conn: DbConn) -> status::Custom<Json<Value>> {
     if user.username.is_none() || user.password.is_none() {
-        return inprocessable_entity();
+        return unprocessable_entity();
     }
 
     let user_id = user.id.clone();

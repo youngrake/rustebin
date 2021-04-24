@@ -24,7 +24,10 @@ pub fn get_paste(id: String, conn: &PgConnection) -> Result<Paste> {
 }
 
 pub fn update_paste(paste: &Paste, conn: &PgConnection) -> Result<Paste> {
-    let paste = pastes::table.find(id).get_result::<Paste>(conn)?;
+    use crate::schema::pastes::dsl::*;
+    let updated = diesel::update(pastes.filter(id.eq(paste.id.as_ref().unwrap())))
+        .set(paste)
+        .get_result(conn)?;
 
-    Ok(paste)
+    Ok(updated)
 }
